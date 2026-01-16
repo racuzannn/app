@@ -1,24 +1,85 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Моё приложение</title>
-
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#111827">
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #111827;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .app {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      border-radius: 12px;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      resize: none;
+      outline: none;
+    }
+    button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: #22c55e;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .saved {
+      margin-top: 15px;
+      font-size: 14px;
+      opacity: 0.8;
+      text-align: center;
+    }
+  </style>
 </head>
+<body>
 
-<body style="margin:0;font-family:sans-serif;background:#111827;color:white;display:flex;align-items:center;justify-content:center;height:100vh;">
-  <div>
-    <h1>🚀 Моё приложение</h1>
-    <p>Запускается с рабочего стола</p>
-    <script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./service-worker.js");
-}
-    </script>
-  </div>
+<div class="app">
+  <h1>📝 Мои заметки</h1>
+  <textarea id="note" placeholder="Напиши здесь..."></textarea>
+  <button onclick="saveNote()">Сохранить</button>
+  <div class="saved" id="status"></div>
+</div>
+
+<script>
+  const noteEl = document.getElementById("note");
+  const statusEl = document.getElementById("status");
+
+  noteEl.value = localStorage.getItem("note") || "";
+
+  function saveNote() {
+    localStorage.setItem("note", noteEl.value);
+    statusEl.textContent = "Сохранено ✔";
+    setTimeout(() => statusEl.textContent = "", 1500);
+  }
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.js");
+  }
+</script>
+
 </body>
 </html>
