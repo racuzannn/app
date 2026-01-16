@@ -14,6 +14,11 @@
   <div>
     <h1>🚀 Моё приложение</h1>
     <p>Запускается с рабочего стола</p>
+    <script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./service-worker.js");
+}
+    </script>
   </div>
 </body>
 </html>
